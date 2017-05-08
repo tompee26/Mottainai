@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TabText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorLightTextSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+</resources>

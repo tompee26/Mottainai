@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application Theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:actionMenuTextColor">@color/colorLightText</item>
+        <item name="actionMenuTextColor">@color/colorLightText</item>
+        <item name="android:textColorSecondary">@color/colorLightTextSecondary</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+</resources>
