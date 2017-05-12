@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Toolbar dimensions -->
+    <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_left_padding">0dp</dimen>
     <dimen name="toolbar_start_padding">0dp</dimen>
     <dimen name="toolbar_right_padding">16dp</dimen>

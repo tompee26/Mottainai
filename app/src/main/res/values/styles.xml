@@ -3,7 +3,7 @@
 
     <style name="TabText">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/colorLightTextSecondary</item>
+        <item name="android:textColor">@color/colorLightSecondary</item>
         <item name="textAllCaps">true</item>
     </style>
 

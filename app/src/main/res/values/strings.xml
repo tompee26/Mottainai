@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Mottainai</string>
+    <string name="content_description" translatable="false">Content Description</string>
+
+    <!-- Tab titles -->
+    <string name="tab_title_browse">Browse</string>
+
+    <!-- Search -->
+    <string name="search">Search</string>
 </resources>

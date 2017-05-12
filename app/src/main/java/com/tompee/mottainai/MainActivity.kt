@@ -12,10 +12,9 @@ class MainActivity : BaseActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState, true)
         setContentView(R.layout.activity_main)
-        setToolbarTitle(R.string.app_name)
 
         val viewPager = findViewById(R.id.view_pager) as ViewPager
-        viewPager.adapter = MainPagerAdapter(supportFragmentManager)
+        viewPager.adapter = MainPagerAdapter(supportFragmentManager, this)
 
         (findViewById(R.id.tab_layout) as TabLayout).setupWithViewPager(viewPager)
     }

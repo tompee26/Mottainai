@@ -16,9 +16,4 @@ open class BaseActivity : AppCompatActivity() {
             supportActionBar?.setDisplayShowTitleEnabled(false)
         }
     }
-
-    protected fun setToolbarTitle(resId: Int) {
-        val toolbarTextView = findViewById(R.id.toolbar_text) as TextView
-        toolbarTextView.setText(resId)
-    }
 }

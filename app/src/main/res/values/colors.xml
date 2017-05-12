@@ -3,10 +3,9 @@
     <color name="colorPrimary">#673AB7</color>
     <color name="colorPrimaryDark">#512DA8</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackground">#fff3f3f3</color>
 
-    <!-- Text colors -->
-    <color name="colorLightText">#FFFFFF</color>
-    <color name="colorLightTextSecondary">#70FFFFFF</color>
+    <color name="colorLight">#FFFFFF</color>
+    <color name="colorLightSecondary">#70FFFFFF</color>
 
 </resources>
