@@ -9,5 +9,6 @@
     <color name="colorLightSecondary">#70FFFFFF</color>
 
     <color name="colorLoginButton">#42A5F5</color>
+    <color name="colorSignUpButton">#EF5350</color>
 
 </resources>
