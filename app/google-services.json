@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "798931815594",
+    "firebase_url": "https://mottainai-7a0d0.firebaseio.com",
+    "project_id": "mottainai-7a0d0",
+    "storage_bucket": "mottainai-7a0d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798931815594:android:8b55473231e2f523",
+        "android_client_info": {
+          "package_name": "com.tompee.mottainai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798931815594-3hbpdaa2oc4q1anturq0tnc0b19bgsoh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGAhzNxnnUjaqSEJuTXweEsNVEPePMOqk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
