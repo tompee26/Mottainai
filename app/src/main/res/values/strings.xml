@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">Mottainai</string>
+    <string name="app_subtitle">Explore the Free Market</string>
     <string name="content_description" translatable="false">Content Description</string>
 
     <!-- Tab titles -->
     <string name="tab_title_browse">Browse</string>
 
     <!-- Search -->
-    <string name="search">Search</string>
+    <string name="label_search">Search</string>
+
+    <!-- Login screen -->
+    <string name="label_login_name">Email</string>
+    <string name="label_login_pass">Password</string>
+    <string name="label_login_button">Login</string>
+    <string name="label_login_new_account">Create a new account</string>
 </resources>

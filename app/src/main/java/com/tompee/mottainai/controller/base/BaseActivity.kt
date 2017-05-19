@@ -1,4 +1,4 @@
-package com.tompee.mottainai.view.base
+package com.tompee.mottainai.controller.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

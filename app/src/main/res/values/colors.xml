@@ -8,4 +8,6 @@
     <color name="colorLight">#FFFFFF</color>
     <color name="colorLightSecondary">#70FFFFFF</color>
 
+    <color name="colorLoginButton">#42A5F5</color>
+
 </resources>

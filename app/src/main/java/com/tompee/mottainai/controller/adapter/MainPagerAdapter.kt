@@ -1,12 +1,12 @@
-package com.tompee.mottainai.view.adapter
+package com.tompee.mottainai.controller.adapter
 
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.tompee.mottainai.R
-import com.tompee.mottainai.view.fragment.BrowseFragment
-import com.tompee.mottainai.view.fragment.SampleFragment
+import com.tompee.mottainai.controller.fragment.BrowseFragment
+import com.tompee.mottainai.controller.fragment.SampleFragment
 
 class MainPagerAdapter(fragmentManager: FragmentManager, context: Context) :
         FragmentStatePagerAdapter(fragmentManager) {

@@ -1,4 +1,4 @@
-package com.tompee.mottainai.view.fragment
+package com.tompee.mottainai.controller.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tompee.mottainai.R
-import com.tompee.mottainai.view.adapter.CategoryAdapter
+import com.tompee.mottainai.controller.adapter.CategoryAdapter
 
 class BrowseFragment : Fragment() {
     companion object {
@@ -22,7 +22,7 @@ class BrowseFragment : Fragment() {
         val view = inflater?.inflate(R.layout.fragment_browse, container, false)
         val recyclerView = view?.findViewById(R.id.browse_recycler_view) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = CategoryAdapter(context, fragmentManager)
+        recyclerView.adapter = CategoryAdapter(fragmentManager)
         return view
     }
 }

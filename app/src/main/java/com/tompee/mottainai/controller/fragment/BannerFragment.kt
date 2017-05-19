@@ -1,4 +1,4 @@
-package com.tompee.mottainai.view.fragment
+package com.tompee.mottainai.controller.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
