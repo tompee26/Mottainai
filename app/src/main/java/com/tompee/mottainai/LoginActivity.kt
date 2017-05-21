@@ -1,5 +1,6 @@
 package com.tompee.mottainai
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -9,6 +10,9 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import com.tompee.mottainai.controller.base.BaseActivity
 import com.tompee.mottainai.controller.fragment.LoginFragment
+import android.R.attr.data
+
+
 
 
 class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.LoginFragmentListener {
@@ -45,10 +49,13 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
         })
         viewPager?.setPageTransformer(false, this)
         viewPager?.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+            private val loginFragment = LoginFragment.newInstance(LoginFragment.LOGIN)
+            private val signUpFragment = LoginFragment.newInstance(LoginFragment.SIGN_UP)
+
             override fun getItem(position: Int): Fragment {
                 when (position) {
-                    0 -> return LoginFragment.newInstance(LoginFragment.LOGIN)
-                    else -> return LoginFragment.newInstance(LoginFragment.SIGN_UP)
+                    0 -> return loginFragment
+                    else -> return signUpFragment
                 }
             }
 
@@ -101,5 +108,11 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
         } else {
             viewPager?.currentItem = 0
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val fragment = (viewPager?.adapter as FragmentStatePagerAdapter).getItem(viewPager?.currentItem!!)
+        fragment.onActivityResult(requestCode, resultCode, data)
     }
 }

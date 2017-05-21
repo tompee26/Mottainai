@@ -2,6 +2,7 @@
     <string name="app_name">Mottainai</string>
     <string name="app_subtitle">Explore the Free Market</string>
     <string name="content_description" translatable="false">Content Description</string>
+    <string name="facebook_app_id" translatable="false">1864982370428918</string>
 
     <!-- Tab titles -->
     <string name="tab_title_browse">Browse</string>
@@ -16,4 +17,8 @@
     <string name="label_login_sign_up">Sign up</string>
     <string name="label_login_new_account">Create a new account</string>
     <string name="label_login_registered">Login now</string>
+    <string name="label_login_option">or login with</string>
+    <string name="error_login_required">This field is required</string>
+    <string name="error_login_invalid_email">Invalid email format</string>
+    <string name="error_login_pass_min">Must be at least 6 characters</string>
 </resources>
