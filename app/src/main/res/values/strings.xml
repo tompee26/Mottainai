@@ -3,6 +3,7 @@
     <string name="app_subtitle">Explore the Free Market</string>
     <string name="content_description" translatable="false">Content Description</string>
     <string name="facebook_app_id" translatable="false">1864982370428918</string>
+    <string name="google_client_id" translatable="false">798931815594-8kqb8uqgr6079jjvura3h71l843mra01.apps.googleusercontent.com</string>
 
     <!-- Tab titles -->
     <string name="tab_title_browse">Browse</string>
@@ -21,4 +22,6 @@
     <string name="error_login_required">This field is required</string>
     <string name="error_login_invalid_email">Invalid email format</string>
     <string name="error_login_pass_min">Must be at least 6 characters</string>
+    <string name="progress_login_register">Registering account…</string>
+    <string name="progress_login_authenticate">Authenticating…</string>
 </resources>

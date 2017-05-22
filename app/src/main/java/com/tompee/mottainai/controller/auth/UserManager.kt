@@ -33,4 +33,8 @@ object UserManager {
         val defaultConfig = SyncConfiguration.Builder(user, MottainaiApp.REALM_URL).build()
         Realm.setDefaultConfiguration(defaultConfig)
     }
+
+    fun getActiveUser() : SyncUser? {
+        return SyncUser.currentUser()
+    }
 }

@@ -85,10 +85,6 @@ class CategoryAdapter(val fragmentManager: FragmentManager) :
         }
 
         fun bind(urlList: List<String>) {
-            val realm = Realm.getDefaultInstance()
-            val query = realm.where(Category::class.java)
-            var results = query.findAll()
-
             viewpager.adapter = object : FragmentStatePagerAdapter(fragmentManager) {
                 override fun getItem(position: Int): Fragment {
                     return BannerFragment.newInstance(urlList[position])

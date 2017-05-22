@@ -10,10 +10,6 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import com.tompee.mottainai.controller.base.BaseActivity
 import com.tompee.mottainai.controller.fragment.LoginFragment
-import android.R.attr.data
-
-
-
 
 class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.LoginFragmentListener {
     private val FRAGMENT_COUNT = 2

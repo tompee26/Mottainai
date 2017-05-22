@@ -15,6 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "798931815594-45i44rr952googcdiiv3892ho0ekgsgl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tompee.mottainai",
+            "certificate_hash": "60fc4186bb9fa2416149f19ebb5ed9cbd2aea9f9"
+          }
+        },
+        {
+          "client_id": "798931815594-8kqb8uqgr6079jjvura3h71l843mra01.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "798931815594-3hbpdaa2oc4q1anturq0tnc0b19bgsoh.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798931815594-8kqb8uqgr6079jjvura3h71l843mra01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

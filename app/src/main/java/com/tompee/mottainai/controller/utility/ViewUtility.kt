@@ -10,14 +10,14 @@ class ViewUtility {
             val resources = context.resources
             val metrics = resources.displayMetrics
             val px = dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-            return px.toInt()
+            return px
         }
 
         fun convertPixelsToDp(px: Int, context: Context): Int {
             val resources = context.resources
             val metrics = resources.displayMetrics
             val dp = px / (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-            return dp.toInt()
+            return dp
         }
 
     }

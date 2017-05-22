@@ -9,7 +9,7 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 
-abstract class FacebookAuth(private val loginButton: LoginButton) {
+abstract class FacebookAuth(loginButton: LoginButton) {
     private val TAG = "FacebookAuth"
     private val callbackManager: CallbackManager = CallbackManager.Factory.create()
 

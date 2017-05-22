@@ -5,8 +5,8 @@ import io.realm.Realm
 
 class MottainaiApp : Application() {
     companion object {
-        val AUTH_URL = "http://54.65.167.222:9080/auth"
-        val REALM_URL = "realm://54.65.167.222:9080/~/realmtasks"
+        val AUTH_URL = "http://54.178.162.237:9080/auth"
+        val REALM_URL = "realm://54.178.162.237:9080/mottainai"
     }
 
     override fun onCreate() {

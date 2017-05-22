@@ -1,11 +1,11 @@
 package com.tompee.mottainai.controller.fragment
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +14,14 @@ import android.widget.Button
 import android.widget.Toast
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.common.SignInButton
 import com.tompee.mottainai.MainActivity
+import com.tompee.mottainai.MottainaiApp
 import com.tompee.mottainai.MottainaiApp.Companion.AUTH_URL
 import com.tompee.mottainai.R
 import com.tompee.mottainai.controller.auth.FacebookAuth
+import com.tompee.mottainai.controller.auth.GoogleAuth
 import com.tompee.mottainai.controller.auth.UserManager
 import io.realm.ErrorCode
 import io.realm.ObjectServerError
@@ -30,11 +33,12 @@ class LoginFragment : Fragment(), View.OnClickListener, SyncUser.Callback {
     private val EMAIL_PATTERN = "[A-Z0-9a-z_%+-]+(\\.[A-Z0-9a-z_%+-]+)*@[A-Za-z0-9]+([.-][A-Za-z0-9]+)*\\.[A-Za-z]{2,}"
     private val MIN_PASS_CHAR = 6
     private var listener: LoginFragmentListener? = null
-    private var auth: FirebaseAuth? = null
     private var userView: AutoCompleteTextView? = null
     private var passView: AutoCompleteTextView? = null
+    private var progressDialog: ProgressDialog? = null
 
     private var facebookAuth: FacebookAuth? = null
+    private var googleAuth: GoogleAuth? = null
 
     companion object {
         const val LOGIN = 0
@@ -48,11 +52,6 @@ class LoginFragment : Fragment(), View.OnClickListener, SyncUser.Callback {
             loginFragment.arguments = bundle
             return loginFragment
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
     }
 
     override fun onAttach(context: Context?) {
@@ -79,18 +78,32 @@ class LoginFragment : Fragment(), View.OnClickListener, SyncUser.Callback {
         val commandButton = view.findViewById(R.id.button_command) as Button
         commandButton.setOnClickListener(this)
 
-        facebookAuth = object : FacebookAuth(view.findViewById(R.id.facebook_login_button) as LoginButton) {
-            override fun onRegistrationComplete(loginResult: LoginResult) {
-                UserManager.mode = UserManager.AUTH_MODE.FACEBOOK
-                val credentials = SyncCredentials.facebook(loginResult.accessToken.token)
-                SyncUser.loginAsync(credentials, AUTH_URL, this@LoginFragment)
-            }
-        }
-
         if (type == LOGIN) {
+            progressDialog = ProgressDialog(context, R.style.AppTheme_Login_Dialog)
             commandButton.text = getString(R.string.label_login_button)
             commandButton.setBackgroundResource(R.drawable.ripple_login)
+            facebookAuth = object : FacebookAuth(view.findViewById(R.id.facebook_login_button) as LoginButton) {
+                override fun onRegistrationComplete(loginResult: LoginResult) {
+                    UserManager.mode = UserManager.AUTH_MODE.FACEBOOK
+                    val credentials = SyncCredentials.facebook(loginResult.accessToken.token)
+                    SyncUser.loginAsync(credentials, AUTH_URL, this@LoginFragment)
+                }
+            }
+
+            googleAuth = object : GoogleAuth(view.findViewById(R.id.google_sign_in_button) as SignInButton, activity) {
+                override fun onRegistrationComplete(result: GoogleSignInResult) {
+                    UserManager.mode = UserManager.AUTH_MODE.GOOGLE
+                    val acct = result.signInAccount
+                    val credentials = SyncCredentials.google(acct!!.idToken!!)
+                    SyncUser.loginAsync(credentials, AUTH_URL, this@LoginFragment)
+                }
+
+                override fun onError(s: String) {
+                    super.onError(s)
+                }
+            }
         } else {
+            progressDialog = ProgressDialog(context, R.style.AppTheme_SignUp_Dialog)
             commandButton.text = getString(R.string.label_login_sign_up)
             commandButton.setBackgroundResource(R.drawable.ripple_sign_up)
             view.findViewById(R.id.google_sign_in_button).visibility = View.GONE
@@ -99,43 +112,54 @@ class LoginFragment : Fragment(), View.OnClickListener, SyncUser.Callback {
             view.findViewById(R.id.left_line).visibility = View.GONE
             view.findViewById(R.id.right_line).visibility = View.GONE
         }
+        progressDialog?.isIndeterminate = true
         return view
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         facebookAuth?.onActivityResult(requestCode, resultCode, data!!)
+        googleAuth?.onActivityResult(requestCode, resultCode, data!!)
     }
 
     override fun onClick(v: View?) {
         val type = arguments?.getInt(TYPE_TAG)
-
+        userView?.error = null
+        passView?.error = null
         if (!validateEmailField() || !validatePassField()) {
             return
         }
         if (type == SIGN_UP) {
-            auth?.createUserWithEmailAndPassword(userView?.text.toString(),
-                    passView?.text.toString())?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    auth?.currentUser?.sendEmailVerification()
-                } else {
-                    Log.d("hello", "Sign up failed")
+            progressDialog?.setMessage(getString(R.string.progress_login_register))
+            progressDialog?.show()
+            SyncUser.loginAsync(SyncCredentials.usernamePassword(userView?.text.toString(),
+                    passView?.text.toString(), true), AUTH_URL, object : SyncUser.Callback {
+                override fun onSuccess(user: SyncUser) {
+                    progressDialog?.dismiss()
+                    registrationComplete(user)
                 }
-            }
-        } else {
-            auth?.signInWithEmailAndPassword(userView?.text.toString(),
-                    passView?.text.toString())?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    if (auth?.currentUser?.isEmailVerified!!) {
-                        moveToMainActivity()
-                    } else {
-                        Log.d("hello", "Verify email first")
+
+                override fun onError(error: ObjectServerError) {
+                    progressDialog?.dismiss()
+                    val errorMsg: String
+                    when (error.errorCode) {
+                        ErrorCode.EXISTING_ACCOUNT -> errorMsg = "Account already exists"
+                        else -> errorMsg = error.toString()
                     }
-                } else {
-                    Log.d("hello", "Log in failed")
+                    Toast.makeText(this@LoginFragment.context, errorMsg, Toast.LENGTH_LONG).show()
                 }
-            }
+            })
+        } else {
+            progressDialog?.setMessage(getString(R.string.progress_login_authenticate))
+            progressDialog?.show()
+            SyncUser.loginAsync(SyncCredentials.usernamePassword(userView?.text.toString(),
+                    passView?.text.toString(), false), MottainaiApp.AUTH_URL, this)
         }
+    }
+
+    private fun registrationComplete(user: SyncUser) {
+        UserManager.setActiveUser(user)
+        moveToMainActivity()
     }
 
     private fun validateEmailField(): Boolean {
@@ -182,12 +206,12 @@ class LoginFragment : Fragment(), View.OnClickListener, SyncUser.Callback {
     }
 
     override fun onSuccess(user: SyncUser?) {
-//        showProgress(false)
+        progressDialog?.dismiss()
         loginComplete(user)
     }
 
     override fun onError(error: ObjectServerError?) {
-//        showProgress(false)
+        progressDialog?.dismiss()
         val errorMsg: String
         when (error?.errorCode) {
             ErrorCode.UNKNOWN_ACCOUNT -> errorMsg = "Account does not exists."

@@ -11,4 +11,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="AppTheme.Login.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorLight</item>
+        <item name="android:textColorPrimary">@color/colorLight</item>
+        <item name="android:background">@color/colorLoginButton</item>
+    </style>
+
+    <style name="AppTheme.SignUp.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorLight</item>
+        <item name="android:textColorPrimary">@color/colorLight</item>
+        <item name="android:background">@color/colorSignUpButton</item>
+    </style>
+
 </resources>
