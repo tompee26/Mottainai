@@ -11,6 +11,11 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.tompee.mottainai.R
 
 abstract class GoogleAuth(btnSignIn: SignInButton, fragmentActivity: FragmentActivity) : GoogleApiClient.OnConnectionFailedListener {
+
+    companion object {
+        private val RC_SIGN_IN = 10
+    }
+
     private val mGoogleApiClient: GoogleApiClient
 
     init {
@@ -67,9 +72,5 @@ abstract class GoogleAuth(btnSignIn: SignInButton, fragmentActivity: FragmentAct
         if (result.isSuccess) {
             onRegistrationComplete(result)
         }
-    }
-
-    companion object {
-        private val RC_SIGN_IN = 10
     }
 }

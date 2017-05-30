@@ -13,22 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.squareup.picasso.Picasso
+import com.tompee.mottainai.MottainaiApp
 import com.tompee.mottainai.R
 import com.tompee.mottainai.controller.fragment.BannerFragment
 import com.tompee.mottainai.controller.utility.ViewUtility
-import com.tompee.mottainai.model.Category
-import io.realm.Realm
 import java.util.*
 
 class CategoryAdapter(val fragmentManager: FragmentManager) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val bannerCount: Int
-    val categoryCount: Int
-
-    init {
-        bannerCount = 5
-        categoryCount = 10
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val viewHolder: RecyclerView.ViewHolder
@@ -44,10 +36,9 @@ class CategoryAdapter(val fragmentManager: FragmentManager) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        // TODO update with correct information
         if (holder is CategoryViewHolder) {
-            holder.bind("http://c1.staticflickr.com/4/3434/3202687733_4dff526fb0_b.jpg",
-                    "category " + position)
+            holder.bind(MottainaiApp.categoryList[position - 1].imageUrl,
+                    MottainaiApp.categoryList[position - 1].name)
         } else if (holder is BannerViewHolder) {
             val urlList = ArrayList<String>()
             urlList.add("http://www.fashionlivre.com/filemanager/source/Shopping%20Guide/Sale/1.jpg")
@@ -58,7 +49,7 @@ class CategoryAdapter(val fragmentManager: FragmentManager) :
     }
 
     override fun getItemCount(): Int {
-        return categoryCount
+        return MottainaiApp.categoryList.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {

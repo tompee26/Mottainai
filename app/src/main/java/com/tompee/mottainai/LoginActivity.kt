@@ -6,29 +6,24 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
-import android.widget.HorizontalScrollView
-import android.widget.ImageView
 import com.tompee.mottainai.controller.base.BaseActivity
 import com.tompee.mottainai.controller.fragment.LoginFragment
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.LoginFragmentListener {
-    private val FRAGMENT_COUNT = 2
-    private var viewPager: ViewPager? = null
+    companion object {
+        val FRAGMENT_COUNT = 2
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val scrollView = findViewById(R.id.hsv_login) as HorizontalScrollView
-        val imageView = findViewById(R.id.iv_login_bg) as ImageView
-        viewPager = findViewById(R.id.vp_login) as ViewPager
-        viewPager?.overScrollMode = View.OVER_SCROLL_NEVER
-
-        viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
+        viewpager.overScrollMode = View.OVER_SCROLL_NEVER
+        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val x = ((viewPager!!.width * position + positionOffsetPixels) * computeFactor())
+                val x = ((viewpager.width * position + positionOffsetPixels) * computeFactor())
                 scrollView.scrollTo(x.toInt(), 0)
             }
 
@@ -39,12 +34,12 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
             }
 
             private fun computeFactor(): Float {
-                return (imageView.width / 2 - viewPager!!.width) / (viewPager!!.width *
-                        (viewPager!!.adapter.count - 1)).toFloat()
+                return (imageView.width / 2 - viewpager.width) / (viewpager.width *
+                        (viewpager.adapter.count - 1)).toFloat()
             }
         })
-        viewPager?.setPageTransformer(false, this)
-        viewPager?.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+        viewpager.setPageTransformer(false, this)
+        viewpager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
             private val loginFragment = LoginFragment.newInstance(LoginFragment.LOGIN)
             private val signUpFragment = LoginFragment.newInstance(LoginFragment.SIGN_UP)
 
@@ -72,7 +67,7 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
             val subtitle = view.findViewById(R.id.tv_app_subtitle)
             subtitle.translationX = -(pageWidth * position)
 
-            val email = view.findViewById(R.id.et_user)
+            val email = view.findViewById(R.id.userView)
             email.translationX = pageWidth * position
             val emailLabel = view.findViewById(R.id.tv_user_label)
             emailLabel.translationX = pageWidth * position
@@ -81,7 +76,7 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
             val userIcon = view.findViewById(R.id.iv_user_icon)
             userIcon.translationX = pageWidth * position
 
-            val pass = view.findViewById(R.id.et_pass)
+            val pass = view.findViewById(R.id.passView)
             pass.translationX = pageWidth * position
             val passLabel = view.findViewById(R.id.tv_pass_label)
             passLabel.translationX = pageWidth * position
@@ -90,7 +85,7 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
             val passIcon = view.findViewById(R.id.iv_pass_icon)
             passIcon.translationX = pageWidth * position
 
-            val button = view.findViewById(R.id.button_command)
+            val button = view.findViewById(R.id.commandButton)
             button.translationX = -(pageWidth * position)
 
         } else {
@@ -100,15 +95,15 @@ class LoginActivity : BaseActivity(), ViewPager.PageTransformer, LoginFragment.L
 
     override fun onSwitchPage(type: Int) {
         if (type == LoginFragment.LOGIN) {
-            viewPager?.currentItem = 1
+            viewpager.currentItem = 1
         } else {
-            viewPager?.currentItem = 0
+            viewpager.currentItem = 0
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        val fragment = (viewPager?.adapter as FragmentStatePagerAdapter).getItem(viewPager?.currentItem!!)
+        val fragment = (viewpager.adapter as FragmentStatePagerAdapter).getItem(viewpager.currentItem)
         fragment.onActivityResult(requestCode, resultCode, data)
     }
 }

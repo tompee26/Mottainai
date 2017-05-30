@@ -1,10 +1,12 @@
 package com.tompee.mottainai.controller.auth
 
+import android.content.Context
 import com.facebook.login.LoginManager
 import com.tompee.mottainai.MottainaiApp
 import io.realm.Realm
 import io.realm.SyncConfiguration
 import io.realm.SyncUser
+import java.io.IOException
 
 object UserManager {
 
@@ -14,7 +16,7 @@ object UserManager {
         GOOGLE
     }
 
-    var mode = AUTH_MODE.PASSWORD // default
+    var mode = AUTH_MODE.PASSWORD
 
     fun logoutActiveUser() {
         when (mode) {
@@ -27,14 +29,5 @@ object UserManager {
             }
         }
         SyncUser.currentUser().logout()
-    }
-
-    fun setActiveUser(user: SyncUser) {
-        val defaultConfig = SyncConfiguration.Builder(user, MottainaiApp.REALM_URL).build()
-        Realm.setDefaultConfiguration(defaultConfig)
-    }
-
-    fun getActiveUser() : SyncUser? {
-        return SyncUser.currentUser()
     }
 }

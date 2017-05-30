@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 class BannerFragment : Fragment() {
 
     companion object {
-        const val URL_KEY = "url"
+        val URL_KEY = "url"
 
         fun newInstance(url: String): BannerFragment {
             val bannerFragment = BannerFragment()
